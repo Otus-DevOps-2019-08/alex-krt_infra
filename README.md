@@ -58,3 +58,4 @@ Pritunl установлен на bastion, подключение провере
 Создание правила фаервола:
 
 	gcloud compute firewall-rules create puma-rule --allow tcp:9292 --target-tags=puma-server
+	
