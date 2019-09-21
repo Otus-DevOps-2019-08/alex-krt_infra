@@ -28,3 +28,33 @@ Pritunl установлен на bastion, подключение провере
 
 	bastion_IP = 35.204.43.137
 	someinternalhost_IP = 10.128.0.2
+
+# Домашняя работа - Основные сервисы GCP
+
+	testapp_IP = 35.221.186.23
+	testapp_port = 9292
+
+Создание инстанса со startup-script, который лежит в бакете.
+Для начала создаем бакет:
+
+	gsutil mb -l us-east1 gs://bucket-for-things/
+
+Загружаем в бакет startup-script.sh
+
+	gsutil cp ~/git/alex-krt_infra/startup_script.sh gs://bucket-for-things/
+
+После этого создаем инстанс с нашим стартап скриптом:
+
+	gcloud compute instances create reddit-app-with-script\
+  --boot-disk-size=10GB \
+  --image-family ubuntu-1604-lts \
+  --image-project=ubuntu-os-cloud \
+  --machine-type=g1-small \
+  --tags puma-server \
+  --restart-on-failure \
+  --scopes storage-ro \
+  --metadata startup-script-url=gs://bucket-for-things/startup_script.sh \
+
+Создание правила фаервола:
+
+	gcloud compute firewall-rules create puma-rule --allow tcp:9292 --target-tags=puma-server
