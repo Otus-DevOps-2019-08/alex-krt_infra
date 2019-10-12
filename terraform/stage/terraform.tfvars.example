@@ -1,0 +1,5 @@
+project          = "infra-12345"
+public_key_path  = "~/.ssh/*.pub"
+disk_image       = "ubuntu"
+zone             = "europe-west1-a"
+private_key_path = "~/.ssh/*"
