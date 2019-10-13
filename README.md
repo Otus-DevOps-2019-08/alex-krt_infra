@@ -68,3 +68,20 @@ Pritunl установлен на bastion, подключение провере
 
 Добавлен конфиг для создания виртуальной машины с помощью terraform (main.tf) в google cloud
 Работа с переменными (terraform.tfvars) и провижионерами
+
+# Домашняя работа - Принципы организации инфраструктурного кода и работа над инфраструктурой в команде на примере Terraform
+
+Настройка фаервола с помощью google-compute-firewall
+
+	resource "google_compute_firewall" "firewall_ssh" {
+  		name = "default-allow-ssh"
+  		network = "default"
+  		allow {
+    	protocol = "tcp"
+    	ports = ["22"]
+  		}
+  	source_ranges = ["0.0.0.0/0"]
+	}
+
+Работа со структурированием конфигурации.
+Работа с модулями, работа с модулем storage-bucket.

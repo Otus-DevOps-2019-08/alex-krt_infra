@@ -4,7 +4,7 @@ variable project {
 variable region {
   description = "Region"
   # Значение по умолчанию
-  default = "us-east1"
+  default = "europe-west1"
 }
 variable public_key_path {
   # Описание переменной
