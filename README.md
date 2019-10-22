@@ -117,3 +117,57 @@ appserver                  : ok=2    changed=1    unreachable=0    failed=0    s
 ```
 
 Changed=1 - репозиторий склонировался заново.
+
+# Домашняя работа - Продолжение знакомства с Ansible (ansible-2)
+
+Работа с плейбуками, несколько сценариев в одном плейбуке, потом несколько плейбуков.
+Вместо баш-скриптов в пакере теперь используем ансибл-плейбуки.
+Задание со *
+Для dynamic inventory использовал gcp_compute inventory plugin. Как настроить:
+1. В ansible.cfg добавить строчку
+```
+[inventory]
+enable_plugins = gcp_compute
+```
+2. Устанавливаем плагин google-auth
+```
+pip install google-auth
+```
+3. Создаем файл inventory.gcp.yml с таким содержанием
+```
+plugin: gcp_compute
+projects:
+  - infra-***
+auth_kind: serviceaccount
+service_account_file: /home/alex/bin/google-cloud-sdk/Infra-***.json
+```
+Проверить работоспособность можно так
+```
+$ ansible-inventory -i inventory.gcp.yml --graph
+@all:
+  |--@ungrouped:
+  |  |--reddit-app
+  |  |--reddit-db
+```
+4. Для группировки инстансов добавляем
+```
+groups:
+  db: "'db' in name"
+  app: "'app' in name"
+```
+Проверяем, что работает:
+```
+$ ansible-inventory -i inventory.gcp.yml --graph
+@all:
+  |--@app:
+  |  |--35.233.71.135
+  |--@db:
+  |  |--35.195.149.196
+  |--@ungrouped:
+```
+В ansible.cfg указываем файл *.gcp.yml 
+```
+inventory = ./inventory.gcp.yml
+```
+И проверяем - все работает :)
+```

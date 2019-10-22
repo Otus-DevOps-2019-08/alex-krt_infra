@@ -1,0 +1,10 @@
+---
+- name: Installing Ruby
+  hosts: app
+  become: true
+  tasks:
+    - name: Installing Ruby
+      apt: 
+        name: ['ruby-full', 'ruby-bundler', 'build-essential']
+        state: present
+    
