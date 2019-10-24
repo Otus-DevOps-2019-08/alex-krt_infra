@@ -1,0 +1,10 @@
+plugin: gcp_compute
+projects:
+  - infra-253219
+#hostnames: 
+#  - name
+groups:
+  db: "'db' in name"
+  app: "'app' in name"
+auth_kind: serviceaccount
+service_account_file: /home/alex/bin/google-cloud-sdk/Infra-9964b60b95a7.json
