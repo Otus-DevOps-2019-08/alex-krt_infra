@@ -1,7 +1,7 @@
 ---
 # tasks file for app
 - name: Show info about the env this host belong to
-  debug: 
+  debug:
     msg: "This host is in {{ env }} environment!!!"
 
 - name: Add unit file for Puma
@@ -16,6 +16,6 @@
     dest: /home/appuser/db_config
     owner: appuser
     group: appuser
-    
+
 - name: enable puma
   systemd: name=puma enabled=yes

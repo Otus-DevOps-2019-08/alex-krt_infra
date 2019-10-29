@@ -3,6 +3,6 @@
   hosts: app
   become: true
 
-  roles: 
+  roles:
     - app
     - jdauphant.nginx
