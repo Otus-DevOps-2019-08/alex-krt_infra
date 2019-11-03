@@ -176,3 +176,27 @@ inventory = ./inventory.gcp.yml
 
 Создание ролей Ansible, управление настройками нескольких окружений и best practices.
 
+# Домашняя работа - Локальная разработка и тестирование Ansible ролей и плейбуков
+
+Работа с Vagrant, провижининг ролей Ansible в Vagrant.
+
+Задание со *
+
+Вынес себе мозг, но методом тыка получился рабочий вариант :)
+Сначала думал сделать шаблон j2 для файла /etc/nginx/sites_available/default.conf,
+но в задании написано "Дополните конфигурацию Vagrant...", и я почему-то подумал, что 
+нужно редактировать только Vagrantfile без создания дополнительных файлов.
+В результате получилась вот такая конструкция в разделе ansible.extra_vars:
+```
+nginx_sites: {
+          "default" => ["listen 80", "server_name _", "location / { proxy_pass http://127.0.0.1:9292; }"]
+}
+```
+На второе задание со звездочкой не хватило времени, может позже... (
+
+Тест к роли db для проверки порта
+```
+# check if MongoDB listening port 27017
+def test_mongodb_port(host):
+    assert host.socket("tcp://:::27017").is_listening
+```
